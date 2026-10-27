@@ -1,0 +1,45 @@
+annee,indicateur,valeur,unite,source,page,note
+2019,bauxite_production,70173326,tonnes,MMG Annuaire statistique 2023,tableau 11 p.23,
+2019,bauxite_exportation,66279526,tonnes,MMG Annuaire statistique 2023,tableau 13 p.24,
+2020,bauxite_production,87766199,tonnes,MMG Annuaire statistique 2023,tableau 11 p.23,
+2020,bauxite_exportation,82558146,tonnes,MMG Annuaire statistique 2023,tableau 13 p.24,
+2021,bauxite_production,87338557,tonnes,MMG Annuaire statistique 2023,tableau 11 p.23,
+2021,bauxite_exportation,85658219,tonnes,MMG Annuaire statistique 2023,tableau 13 p.24,
+2022,bauxite_production,94525503,tonnes,MMG Annuaire statistique 2023,tableau 11 p.23,
+2022,bauxite_exportation,102288468,tonnes,MMG Annuaire statistique 2023,tableau 13 p.24,
+2023,bauxite_production,123067415,tonnes,MMG Annuaire statistique 2023,tableau 11 p.23,
+2023,bauxite_exportation,126587724,tonnes,MMG Annuaire statistique 2023,tableau 13 p.24,
+2024,bauxite_production,141708931,tonnes,MMG Bulletin annuel 2024,tableau I-4 p.7,le Bulletin 2024 donne 103525513 t pour 2022 (Annuaire: 94525503)
+2024,bauxite_exportation,145859987,tonnes,MMG Bulletin annuel 2024,tableau I-4 p.7,
+2025,bauxite_exportation,182800000,tonnes,Presse (Financial Afrik 29/01/2026) citant le ministere,,"chiffre arrondi annonce, a remplacer par le bulletin officiel"
+2019,or_production,13663,kg,MMG Annuaire statistique 2023,tableau 26 p.31,
+2020,or_production,13335,kg,MMG Annuaire statistique 2023,tableau 26 p.31,
+2021,or_production,19135,kg,MMG Annuaire statistique 2023,tableau 26 p.31,
+2022,or_production,22734,kg,MMG Annuaire statistique 2023,tableau 26 p.31,
+2023,or_production,17507,kg,MMG Annuaire statistique 2023,tableau 26 p.31,
+2020,export_total,61148,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2020,export_bauxite,27910,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2020,export_or,30233,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2020,export_alumine,459,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2021,export_total,89313,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2021,export_bauxite,24019,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2021,export_or,51697,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2021,export_alumine,1001,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2022,export_total,63652,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2022,export_bauxite,21500,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2022,export_or,36992,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2022,export_alumine,979,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2023,export_total,63163,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2023,export_bauxite,27288,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2023,export_or,30835,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2023,export_alumine,644,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2024,export_total,88141,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,graphique 5 indique 91095 pour 2024; texte 88141
+2024,export_bauxite,40477,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2024,export_or,41471,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2024,export_alumine,909,milliards GNF,INS Commerce exterieur 2024,graphiques 5-8 p.14-16,
+2019,part_extractif_pib,16.1,%,MMG Annuaire statistique 2023,tableau 41 p.40,"ratio calcule: PIB extraction des minerais / PIB total, valeurs courantes"
+2020,part_extractif_pib,16.9,%,MMG Annuaire statistique 2023,tableau 41 p.40,"ratio calcule: PIB extraction des minerais / PIB total, valeurs courantes"
+2021,part_extractif_pib,16.0,%,MMG Annuaire statistique 2023,tableau 41 p.40,"ratio calcule: PIB extraction des minerais / PIB total, valeurs courantes"
+2022,part_extractif_pib,12.0,%,MMG Annuaire statistique 2023,tableau 41 p.40,"ratio calcule: PIB extraction des minerais / PIB total, valeurs courantes"
+2023,part_extractif_pib,10.4,%,MMG Annuaire statistique 2023,tableau 41 p.40,"ratio calcule: PIB extraction des minerais / PIB total, valeurs courantes"
+2024,part_extractif_pib,26,%,Bpifrance fiche pays dec. 2025 citant INS,,perimetre probablement different de l'Annuaire MMG: ne pas comparer directement
