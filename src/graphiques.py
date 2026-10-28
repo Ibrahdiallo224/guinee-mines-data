@@ -174,3 +174,64 @@ def graphique_taxe_par_tonne(taxes, annee):
     ax.set_title(f"Taxe minière payée par tonne de bauxite exportée ({annee})")
     ajouter_source(f"Ministère des Mines, Bulletin annuel {annee} ; CBG et COBAD absentes (pas de taxe minière déclarée)")
     enregistrer("taxe_par_tonne.png")
+
+
+# ---------- Étape 3 : pays acheteurs ----------
+
+def graphique_chine_bauxite(t):
+    """Barres empilées : valeur de la bauxite achetée par la Chine et par les autres pays."""
+    annees = t["annee"].astype(str)
+    autres = t["total_milliards_usd"] - t["chine_milliards_usd"]
+    fig, ax = plt.subplots()
+    ax.bar(annees, t["chine_milliards_usd"], color=BAUXITE, width=0.65, label="Chine")
+    ax.bar(annees, autres, bottom=t["chine_milliards_usd"], color=GRIS, width=0.65, label="Autres pays")
+    for annee, total, part in zip(annees, t["total_milliards_usd"], t["part_chine_pct"]):
+        ax.text(annee, total + 0.25, f"{part:.0f} %", ha="center", fontweight="bold", color=BAUXITE)
+    ax.set_title(f"La Chine achète {t['part_chine_pct'].iloc[-1]:.0f} % de la bauxite guinéenne "
+                 f"en {annees.iloc[-1]}", pad=30)
+    ax.set_ylabel("Milliards de dollars (valeur à l'arrivée)")
+    ax.set_ylim(0, t["total_milliards_usd"].max() * 1.12)
+    ax.legend(ncol=2, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    ax.text(1, 1.02, "en gras : part de la Chine", transform=ax.transAxes, ha="right",
+            fontsize=9, color="gray")
+    ajouter_source("UN Comtrade, importations déclarées depuis la Guinée (code SH 2606)")
+    enregistrer("bauxite_chine.png")
+
+
+def graphique_prix_tonne(prix):
+    """Courbe du prix moyen d'une tonne de bauxite guinéenne à son arrivée en Chine."""
+    prix = prix[prix["millions_tonnes"] > 1]          # 2015 : moins d'1 Mt, prix peu représentatif
+    toutes = range(prix["annee"].min(), prix["annee"].max() + 1)
+    courbe = prix.set_index("annee")["usd_par_tonne"].reindex(toutes)   # année exclue = trou dans la courbe
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.plot(courbe.index, courbe.values, color=BAUXITE, linewidth=3, marker="o")
+    for annee, v in zip(prix["annee"], prix["usd_par_tonne"]):
+        ax.text(annee, v + 2, f"{v:.0f} $", ha="center", fontsize=10)
+    ax.set_title("Une tonne de bauxite guinéenne vaut 81 $ à son arrivée en Chine (2025)")
+    ax.set_ylabel("Dollars par tonne (valeur CIF)")
+    ax.set_ylim(0, prix["usd_par_tonne"].max() * 1.2)
+    ax.set_xticks(toutes)
+    ajouter_source("UN Comtrade (valeur / poids déclarés par la Chine) ; 2016 et 2023 exclues : poids estimés")
+    enregistrer("bauxite_prix_chine.png")
+
+
+def graphique_or_clients(t):
+    """Barres empilées : valeur de l'or acheté à la Guinée, par pays acheteur."""
+    annees = t["annee"].astype(str)
+    fig, ax = plt.subplots()
+    bas = 0
+    for colonne, nom, couleur in [("emirats", "Émirats arabes unis", OR),
+                                  ("inde", "Inde", "#8e6c3a"),
+                                  ("suisse", "Suisse", ALUMINE),
+                                  ("autres", "Autres", GRIS)]:
+        ax.bar(annees, t[colonne] / 1000, bottom=bas, label=nom, color=couleur, width=0.65)
+        bas = bas + t[colonne] / 1000
+    ax.axvspan(len(annees) - 2.5, len(annees) - 0.5, color=GUINEE, alpha=0.07)
+    ax.text(len(annees) - 1.5, t["total"].max() / 1000 * 0.55,
+            "Émirats absents\ndes déclarations\n(données\nincomplètes)",
+            ha="center", color=GUINEE, fontsize=9)
+    ax.set_title("L'or guinéen part surtout vers les Émirats (Dubaï)", pad=30)
+    ax.set_ylabel("Milliards de dollars")
+    ax.legend(ncol=4, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    ajouter_source("UN Comtrade, importations déclarées depuis la Guinée (code SH 7108)")
+    enregistrer("or_clients.png")
