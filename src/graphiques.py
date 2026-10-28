@@ -3,7 +3,11 @@
 Toutes les fonctions partagent le même style : Guinée en rouge, voisins en gris,
 titre qui dit la conclusion, source en bas à gauche.
 """
+from pathlib import Path
+
 import matplotlib.pyplot as plt
+
+DOSSIER_IMAGES = Path(__file__).resolve().parent.parent / "images"
 
 GUINEE = "#c0392b"   # couleur de la Guinée dans tout le projet
 GRIS = "#b0b0b0"
@@ -35,7 +39,8 @@ def ajouter_source(texte):
 
 def enregistrer(nom_fichier):
     """Enregistre le graphique dans images/ puis l'affiche."""
-    plt.savefig(f"../images/{nom_fichier}", dpi=150, bbox_inches="tight")
+    DOSSIER_IMAGES.mkdir(exist_ok=True)
+    plt.savefig(DOSSIER_IMAGES / nom_fichier, dpi=150, bbox_inches="tight")
     plt.show()
 
 
