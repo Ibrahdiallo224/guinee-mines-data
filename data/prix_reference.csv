@@ -1,0 +1,4 @@
+produit,prix,unite,source,lien
+bauxite,81,USD/t,"UN Comtrade 2025, valeur / poids déclarés par la Chine (étape 3)",https://comtradeplus.un.org/
+or,4300,USD/once,"Banque mondiale, Commodity Markets Outlook avril 2026, tableau 1 p.13 (prévision 2027)",https://thedocs.worldbank.org/en/doc/f3138644a1e8e2bb631399ae11d6c408-0050012026/original/CMO-April-2026.pdf
+fer,97,USD/t,"Banque mondiale, Commodity Markets Outlook avril 2026, tableau 1 p.13 (prévision 2026)",https://thedocs.worldbank.org/en/doc/f3138644a1e8e2bb631399ae11d6c408-0050012026/original/CMO-April-2026.pdf
