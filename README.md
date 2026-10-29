@@ -89,6 +89,6 @@ Puis ouvrir les notebooks dans l'ordre et tout exécuter. Les autres fichiers de
 
 ## Suite du projet
 
-- **Prévision** de la production de bauxite jusqu'en 2050 (régression, avec l'incertitude chiffrée).
+- **Prévision** de la production de bauxite jusqu'en 2035 (régression, avec l'incertitude chiffrée).
 - **Extraction automatique** des tableaux des rapports ITIE (PDF) avec un modèle de langage.
 - **Un assistant** qui répond aux questions sur les rapports miniers guinéens en citant ses sources.
