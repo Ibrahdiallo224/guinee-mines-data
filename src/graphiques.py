@@ -275,3 +275,160 @@ def graphique_simandou_comparaison(comparaison):
     ax.set_title("À plein régime, Simandou pèserait autant que toute la bauxite guinéenne")
     ajouter_source("Banque mondiale (PIB), UN Comtrade (bauxite, valeur à l'arrivée), scénarios Simandou")
     enregistrer("simandou_comparaison.png")
+
+
+# ---------- Machine learning : prévisions ----------
+
+def graphique_deux_modeles(serie, modele_long, modele_court, debut_court):
+    """La série réelle et deux droites de régression : toute la période et depuis la rupture."""
+    fig, ax = plt.subplots()
+    ax.plot(serie["annee"], serie["valeur"], "o", color=BAUXITE, label="production réelle")
+    ax.plot(serie["annee"], modele_long.predict(serie[["annee"]]), "--", color=GRIS, linewidth=2,
+            label="droite sur 2000-2024")
+    recent = serie[serie["annee"] >= debut_court]
+    ax.plot(recent["annee"], modele_court.predict(recent[["annee"]]), color=GUINEE, linewidth=2.5,
+            label=f"droite sur {debut_court}-2024")
+    ax.axvline(debut_court - 0.5, color="gray", linestyle=":", linewidth=1)
+    ax.text(debut_court - 0.7, serie["valeur"].max() * 0.85, "rupture", ha="right", color="gray")
+    ax.set_title("Une seule droite ne colle pas : la production change de régime en 2016", pad=30)
+    ax.set_ylabel("Millions de tonnes")
+    ax.legend(ncol=3, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    ajouter_source("USGS Minerals Yearbook (2000-2018), Ministère des Mines (2019-2024)")
+    enregistrer("bauxite_deux_modeles.png")
+
+
+def graphique_prevision(serie, prevision, titre, unite, couleur, source, nom_fichier):
+    """La série réelle, puis la prévision avec son intervalle à 95 %."""
+    fig, ax = plt.subplots()
+    ax.plot(serie["annee"], serie["valeur"], color=couleur, linewidth=2.5, marker="o", markersize=4,
+            label="réel")
+    ax.plot(prevision["annee"], prevision["prevision"], color=couleur, linewidth=2.5, linestyle="--",
+            label="prévision")
+    ax.fill_between(prevision["annee"], prevision["bas"], prevision["haut"], color=couleur, alpha=0.15,
+                    label="intervalle à 95 %")
+    fin = prevision.iloc[-1]
+    decimales = 0 if fin["prevision"] >= 100 else 1
+    etiquette = f"{fin['prevision']:.{decimales}f}\n({fin['bas']:.{decimales}f} à {fin['haut']:.{decimales}f})"
+    ax.text(fin["annee"] + 0.3, fin["prevision"], etiquette.replace(".", ","), va="center", color=couleur,
+            fontweight="bold")
+    ax.set_title(titre, pad=30)
+    ax.set_ylabel(unite)
+    ax.set_ylim(0, None)
+    ax.set_xlim(serie["annee"].min() - 0.5, fin["annee"] + 3)
+    ax.legend(ncol=3, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    ajouter_source(source)
+    enregistrer(nom_fichier)
+
+
+def graphique_synthese(tableau, annee):
+    """Barres empilées : exportations minières prévues par produit, avec la fourchette du total."""
+    produits = tableau[tableau["produit"] != "Total"]
+    total = tableau[tableau["produit"] == "Total"].iloc[0]
+    couleurs = {"Bauxite": BAUXITE, "Or industriel": OR, "Fer (Simandou)": "#34495e"}
+    fig, ax = plt.subplots(figsize=(10, 5))
+    gauche = 0
+    for _, ligne in produits.iterrows():
+        ax.barh(0, ligne["central"], left=gauche, color=couleurs[ligne["produit"]], height=0.5)
+        texte = f"{ligne['produit']}\n{ligne['central']:.1f} Md$".replace(".", ",")
+        if ligne["central"] >= 5:          # assez de place : texte dans la barre
+            ax.text(gauche + ligne["central"] / 2, 0, texte, ha="center", va="center", color="white",
+                    fontweight="bold", fontsize=10)
+        else:                              # barre étroite : texte sous la barre
+            ax.text(gauche + ligne["central"] / 2, -0.42, texte, ha="center", va="center",
+                    color=couleurs[ligne["produit"]], fontweight="bold", fontsize=10)
+        gauche += ligne["central"]
+    ax.errorbar(total["central"], 0.36, xerr=[[total["central"] - total["bas"]], [total["haut"] - total["central"]]],
+                fmt="o", color="black", capsize=6, elinewidth=1.5, markersize=4)
+    ax.text(total["central"], 0.5, f"Total : {total['central']:.0f} Md$ (fourchette {total['bas']:.0f} à {total['haut']:.0f})",
+            ha="center", fontweight="bold")
+    ax.set_yticks([])
+    ax.set_ylim(-0.6, 0.7)
+    ax.set_xlabel("Milliards de dollars par an")
+    ax.grid(axis="x", alpha=0.3)
+    ax.spines["left"].set_visible(False)
+    ax.set_title(f"Exportations minières de la Guinée en {annee} : environ {total['central']:.0f} milliards de dollars")
+    ajouter_source("Prévisions (bauxite, or), scénario Simandou (fer), prix UN Comtrade et Banque mondiale")
+    enregistrer("synthese_2035.png")
+
+
+# ---------- Comparaison internationale ----------
+
+def graphique_bauxite_pays(t):
+    """Production de bauxite de la Guinée face aux deux autres géants (Australie, Chine)."""
+    fig, ax = plt.subplots()
+    ax.plot(t["annee"], t["australie"], color="#7f8c8d", linewidth=2, label="Australie")
+    ax.plot(t["annee"], t["chine"], color=GRIS, linewidth=2, label="Chine")
+    ax.plot(t["annee"], t["guinee"], color=GUINEE, linewidth=3, label="Guinée")
+    for colonne, couleur in (("guinee", GUINEE), ("australie", "#7f8c8d"), ("chine", GRIS)):
+        fin = t.iloc[-1]
+        ax.text(fin["annee"] + 0.3, fin[colonne], f"{fin[colonne]:.0f}", va="center", color=couleur,
+                fontweight="bold")
+    ax.annotate("2023 : la Guinée\ndépasse l'Australie", xy=(2023, 123), xytext=(2014, 130),
+                arrowprops={"arrowstyle": "->", "color": "gray"}, color="gray")
+    ax.set_title("Depuis 2023, la Guinée est le premier producteur mondial de bauxite", pad=30)
+    ax.set_ylabel("Millions de tonnes sèches")
+    ax.set_ylim(0, None)
+    ax.legend(ncol=3, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    ajouter_source("USGS Minerals Yearbook (2000-2022), Mineral Commodity Summaries 2025 et 2026 (2023-2025)")
+    enregistrer("bauxite_pays.png")
+
+
+def graphique_part_guinee(t, part):
+    """Part de la Guinée dans la production mondiale : réel puis prévision."""
+    fig, ax = plt.subplots()
+    ax.plot(t["annee"], t["part_guinee_pct"], color=GUINEE, linewidth=2.5, marker="o", markersize=4,
+            label="réel")
+    jonction = [t["annee"].iloc[-1]] + list(part["annee"])
+    valeurs = [t["part_guinee_pct"].iloc[-1]] + list(part["part_pct"])
+    ax.plot(jonction, valeurs, color=GUINEE, linewidth=2.5, linestyle="--", label="prévision")
+    for annee, valeur, decalage in ((2015, t.set_index("annee").loc[2015, "part_guinee_pct"], -4),
+                                    (t["annee"].iloc[-1], t["part_guinee_pct"].iloc[-1], 2),
+                                    (part["annee"].iloc[-1], part["part_pct"].iloc[-1], 2)):
+        ax.text(annee, valeur + decalage, f"{valeur:.0f} %", ha="center", color=GUINEE, fontweight="bold")
+    ax.set_title("Une tonne de bauxite sur trois vient de Guinée, bientôt près d'une sur deux", pad=30)
+    ax.set_ylabel("% de la production mondiale")
+    ax.set_ylim(0, 55)
+    ax.legend(ncol=2, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    ajouter_source("USGS ; prévision : régressions linéaires 2016-2025 sur la Guinée et sur le monde (scikit-learn)")
+    enregistrer("part_guinee_monde.png")
+
+
+# ---------- Simandou face aux autres grandes mines de fer ----------
+
+def graphique_montee_en_charge(t):
+    """% de la capacité atteint chaque année : Roy Hill et S11D (réel), Simandou (scénario)."""
+    styles = {"Roy Hill": ("#7f8c8d", "-"), "S11D": (GRIS, "-"), "Simandou (scénario)": (GUINEE, "--")}
+    fig, ax = plt.subplots()
+    for mine, (couleur, trait) in styles.items():
+        m = t[t["mine"] == mine]
+        ax.plot(m["annee_exploitation"], m["pct_capacite"], color=couleur, linestyle=trait, linewidth=2.5,
+                marker="o", label=mine)
+        fin = m.iloc[-1]
+        ax.text(fin["annee_exploitation"] + 0.15, fin["pct_capacite"] + 3, f"{fin['pct_capacite']:.0f} %",
+                va="center", color=couleur, fontweight="bold")
+    ax.axhline(100, color="black", linewidth=0.8, linestyle=":")
+    ax.set_title("Simandou démarre bien plus lentement que Roy Hill et S11D", pad=30)
+    ax.set_xlabel("Année d'exploitation (1 = première année après le démarrage)")
+    ax.set_ylabel("% de la capacité annoncée")
+    ax.set_ylim(0, 110)
+    ax.set_xticks(range(1, 8))
+    ax.legend(ncol=3, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    ajouter_source("Roy Hill Holdings, Hancock Prospecting, Vale (rapports de production) ; scénario Simandou de l'étape 4")
+    enregistrer("simandou_montee_en_charge.png")
+
+
+def graphique_fer_classement(t, nb=10):
+    """Barres horizontales : les plus grands producteurs de fer, avec la Guinée si Simandou tourne à plein."""
+    top = t.head(nb).iloc[::-1]          # le premier en haut
+    couleurs = [GUINEE if "Guinée" in p else GRIS for p in top["pays"]]
+    fig, ax = plt.subplots()
+    ax.barh(top["pays"], top["production_mt"], color=couleurs)
+    for y, (v, part) in enumerate(zip(top["production_mt"], top["part_monde_pct"])):
+        ax.text(v + 10, y, f"{v:.0f} Mt ({part:.1f} %)".replace(".", ","), va="center", fontsize=10)
+    ax.grid(False)
+    ax.set_xticks([])
+    ax.spines["bottom"].set_visible(False)
+    ax.set_xlim(0, top["production_mt"].max() * 1.2)
+    ax.set_title("Avec Simandou à plein régime, la Guinée serait le 5e producteur mondial de fer")
+    ajouter_source("USGS Mineral Commodity Summaries 2026 (production 2025) ; capacité de Simandou : Rio Tinto")
+    enregistrer("fer_classement_mondial.png")
