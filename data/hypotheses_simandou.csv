@@ -1,0 +1,10 @@
+type,cle,valeur,unite,justification
+volume,2026,7.5,Mt,milieu de la prévision de ventes de Rio Tinto (5 à 10 Mt)
+volume,2027,25,Mt,hypothèse : montée en charge progressive de SimFer et de WCS
+volume,2028,60,Mt,hypothèse : SimFer atteint 60 Mt/an au second semestre 2028 (objectif Rio Tinto) ; WCS au même rythme
+volume,2029,100,Mt,hypothèse : les deux mines proches du plein régime
+volume,2030,120,Mt,capacité totale annoncée (SimFer 60 + WCS 60)
+prix,bas,80,USD/t,hypothèse : baisse du prix si Simandou et les autres nouvelles mines saturent le marché
+prix,moyen,97,USD/t,prévision 2026 de la Banque mondiale
+prix,haut,110,USD/t,niveau de 2024 selon la Banque mondiale (109 USD/t)
+taxe,extraction_fer,3,%,Code minier (taxe d'extraction sur le minerai de fer)
