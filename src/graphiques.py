@@ -235,3 +235,43 @@ def graphique_or_clients(t):
     ax.legend(ncol=4, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
     ajouter_source("UN Comtrade, importations déclarées depuis la Guinée (code SH 7108)")
     enregistrer("or_clients.png")
+
+
+# ---------- Étape 4 : Simandou ----------
+
+FER = "#34495e"
+
+
+def graphique_simandou_scenarios(scenarios):
+    """Valeur des exportations de Simandou 2026-2030 : prix moyen en trait plein, bas et haut en fourchette."""
+    t = scenarios.pivot(index="annee", columns="scenario", values="milliards_usd")
+    fig, ax = plt.subplots()
+    ax.fill_between(t.index, t["bas"], t["haut"], color=FER, alpha=0.15, label="fourchette prix bas / haut")
+    ax.plot(t.index, t["moyen"], color=FER, linewidth=3, marker="o", label="prix moyen (97 $/t)")
+    for annee, v in t["moyen"].items():
+        ax.text(annee, v + 0.6, f"{v:.1f}".replace(".", ","), ha="center", fontweight="bold", color=FER)
+    ax.text(t.index[-1] + 0.08, t["haut"].iloc[-1], "prix haut\n(110 $/t)", va="center", fontsize=9, color="gray")
+    ax.text(t.index[-1] + 0.08, t["bas"].iloc[-1], "prix bas\n(80 $/t)", va="center", fontsize=9, color="gray")
+    ax.set_title("Simandou pourrait exporter 10 à 13 milliards de dollars par an en 2030", pad=30)
+    ax.set_ylabel("Milliards de dollars par an")
+    ax.set_xticks(t.index)
+    ax.set_xlim(t.index.min() - 0.3, t.index.max() + 0.6)
+    ax.legend(ncol=2, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    ajouter_source("Scénario construit à partir des annonces de Rio Tinto (montée en charge) et de la Banque mondiale (prix)")
+    enregistrer("simandou_scenarios.png")
+
+
+def graphique_simandou_comparaison(comparaison):
+    """Barres horizontales : Simandou à plein régime à côté de la bauxite et du PIB."""
+    t = comparaison.iloc[::-1]          # le PIB en haut
+    couleurs = [FER if "Simandou" in e else (BAUXITE if "Bauxite" in e else GRIS) for e in t["element"]]
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.barh(t["element"], t["milliards_usd"], color=couleurs)
+    for y, v in enumerate(t["milliards_usd"]):
+        ax.text(v + 0.3, y, f"{v:.1f} Md$".replace(".", ","), va="center", fontsize=10)
+    ax.grid(False)
+    ax.set_xticks([])
+    ax.spines["bottom"].set_visible(False)
+    ax.set_title("À plein régime, Simandou pèserait autant que toute la bauxite guinéenne")
+    ajouter_source("Banque mondiale (PIB), UN Comtrade (bauxite, valeur à l'arrivée), scénarios Simandou")
+    enregistrer("simandou_comparaison.png")
