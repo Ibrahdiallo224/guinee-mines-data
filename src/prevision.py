@@ -72,3 +72,10 @@ def synthese(bauxite, orr, prix, fer):
     tableau = pd.DataFrame(lignes, columns=["produit", "bas", "central", "haut"])
     tableau.loc[len(tableau)] = ["Total", tableau["bas"].sum(), tableau["central"].sum(), tableau["haut"].sum()]
     return tableau
+
+
+def part_prevue(prevision_pays, prevision_monde):
+    """Part d'un pays dans la production mondiale prévue, en %, année par année."""
+    part = prevision_pays[["annee"]].copy()
+    part["part_pct"] = 100 * prevision_pays["prevision"] / prevision_monde["prevision"]
+    return part
