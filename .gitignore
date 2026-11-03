@@ -221,3 +221,6 @@ __marimo__/
 
 guides/
 
+
+# Rapports ITIE en PDF : trop lourds pour Git, on les retélécharge avec src/telecharger_itie.py
+data/itie/
