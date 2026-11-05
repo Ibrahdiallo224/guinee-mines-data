@@ -6,6 +6,8 @@ titre qui dit la conclusion, source en bas à gauche.
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
+import pandas as pd
 
 DOSSIER_IMAGES = Path(__file__).resolve().parent.parent / "images"
 
@@ -432,3 +434,89 @@ def graphique_fer_classement(t, nb=10):
     ax.set_title("Avec Simandou à plein régime, la Guinée serait le 5e producteur mondial de fer")
     ajouter_source("USGS Mineral Commodity Summaries 2026 (production 2025) ; capacité de Simandou : Rio Tinto")
     enregistrer("fer_classement_mondial.png")
+
+
+# ---------- Paiements ITIE : ce que les sociétés minières versent à l'État ----------
+
+COULEURS_PRODUITS = {"bauxite": BAUXITE, "or": OR, "fer": "#34495e", "alumine": ALUMINE}
+
+
+def graphique_paiements_societes(t, annee):
+    """Barres horizontales : ce que chaque société a versé à l'État, colorées par produit."""
+    t = t.iloc[::-1]                                        # la plus grosse en haut
+    fig, ax = plt.subplots(figsize=(10, 7))
+    ax.barh(t["nom_court"], t["millions_usd"], color=[COULEURS_PRODUITS[p] for p in t["produit"]])
+    for y, (v, part) in enumerate(zip(t["millions_usd"], t["part_pct"])):
+        ax.text(v + 2, y, f"{v:.1f} M$ ({part:.1f} %)".replace(".", ","), va="center", fontsize=9)
+    # une légende « à la main » : un carré de couleur par produit
+    carres = [Patch(color=couleur, label=produit) for produit, couleur in COULEURS_PRODUITS.items()]
+    ax.legend(handles=carres, ncol=4, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    ax.grid(False)
+    ax.set_xticks([])
+    ax.spines["bottom"].set_visible(False)
+    ax.set_xlim(0, t["millions_usd"].max() * 1.25)
+    deux_premieres = t["part_pct"].iloc[-2:].sum()
+    ax.set_title(f"En {annee}, deux sociétés de bauxite versent {deux_premieres:.0f} % des paiements miniers", pad=30)
+    ajouter_source(f"Rapport ITIE Guinée {annee} (montants confirmés par l'État, convertis au cours BCRG de fin d'année)")
+    enregistrer(f"itie_paiements_societes_{annee}.png")
+
+
+def graphique_declarations(t, annee, nb=8):
+    """Deux barres par société : ce que la société dit avoir payé, ce que l'État dit avoir reçu."""
+    t = t.head(nb).iloc[::-1]
+    y = range(len(t))
+    fig, ax = plt.subplots()
+    ax.barh([i + 0.2 for i in y], t["selon_societe_musd"], height=0.4, color=GRIS, label="selon la société")
+    ax.barh([i - 0.2 for i in y], t["selon_etat_musd"], height=0.4, color=GUINEE, label="selon l'État")
+    ax.set_yticks(list(y), t["nom_court"])
+    ax.grid(True, axis="x", alpha=0.3)
+    ax.grid(False, axis="y")
+    ax.set_xlabel("millions de dollars")
+    ax.legend(ncol=2, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    plus_gros = t.iloc[-1]
+    ax.set_title(f"{plus_gros['nom_court']} dit avoir payé {plus_gros['ecart_musd']:.0f} M$ de plus "
+                 "que ce que l'État a reçu", pad=30)
+    ajouter_source(f"Rapport ITIE Guinée {annee}, rapprochement par société (après ajustements)")
+    enregistrer(f"itie_declarations_{annee}.png")
+
+
+def graphique_paiement_par_tonne(t):
+    """Barres côte à côte : dollars versés à l'État par tonne de bauxite exportée, 2022 et 2023."""
+    x = range(len(t))
+    fig, ax = plt.subplots()
+    ax.bar([i - 0.2 for i in x], t["usd_tonne_2022"], width=0.4, color=GRIS, label="2022")
+    ax.bar([i + 0.2 for i in x], t["usd_tonne_2023"], width=0.4, color=GUINEE, label="2023")
+    for i, v in zip(x, t["usd_tonne_2023"]):
+        if v == v:                                          # v != v seulement pour une valeur manquante (NaN)
+            ax.text(i + 0.2, v + 0.15, f"{v:.1f}".replace(".", ","), ha="center", fontsize=9, color=GUINEE)
+    ax.set_xticks(list(x), t["nom_court"])
+    ax.set_ylabel("dollars par tonne exportée")
+    ax.legend(ncol=2, loc="lower left", bbox_to_anchor=(0, 1.0), frameon=False)
+    ax.set_title("Par tonne exportée, presque toutes les sociétés de bauxite ont moins payé en 2023", pad=30)
+    ajouter_source("Rapports ITIE Guinée 2022 et 2023 (paiements) ; ministère des Mines, annuaire 2023 (tonnages)")
+    enregistrer("itie_paiement_par_tonne.png")
+
+
+# ---------- Notre modèle qui reconnaît le thème d'une page ----------
+
+def graphique_matrice_confusion(vrais, predits, titre):
+    """Tableau coloré : en ligne le vrai thème, en colonne le thème prédit. La diagonale = les bonnes réponses."""
+    themes = sorted(set(vrais) | set(predits))
+    matrice = pd.crosstab(pd.Categorical(vrais, themes), pd.Categorical(predits, themes), dropna=False)
+    fig, ax = plt.subplots(figsize=(8, 7))
+    ax.imshow(matrice.values, cmap="Reds")
+    for i in range(len(themes)):
+        for j in range(len(themes)):
+            n = matrice.values[i, j]
+            if n:
+                ax.text(j, i, n, ha="center", va="center",
+                        color="white" if n > matrice.values.max() / 2 else "black")
+    ax.set_xticks(range(len(themes)), themes, rotation=45, ha="right")
+    ax.set_yticks(range(len(themes)), themes)
+    ax.set_xlabel("thème prédit par le modèle")
+    ax.set_ylabel("vrai thème (sommaire du rapport)")
+    ax.grid(False)
+    ax.set_title(titre)
+    # la source plus bas que d'habitude, sous les noms de thèmes penchés
+    plt.figtext(0.01, -0.1, "Source : rapports ITIE Guinée, entraînement sur 2022, test sur 2023", fontsize=9, color="gray")
+    enregistrer("modele_pages_confusion.png")
