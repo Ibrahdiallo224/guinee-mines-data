@@ -7,6 +7,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
+import pandas as pd
 
 DOSSIER_IMAGES = Path(__file__).resolve().parent.parent / "images"
 
@@ -494,3 +495,28 @@ def graphique_paiement_par_tonne(t):
     ax.set_title("Par tonne exportée, presque toutes les sociétés de bauxite ont moins payé en 2023", pad=30)
     ajouter_source("Rapports ITIE Guinée 2022 et 2023 (paiements) ; ministère des Mines, annuaire 2023 (tonnages)")
     enregistrer("itie_paiement_par_tonne.png")
+
+
+# ---------- Notre modèle qui reconnaît le thème d'une page ----------
+
+def graphique_matrice_confusion(vrais, predits, titre):
+    """Tableau coloré : en ligne le vrai thème, en colonne le thème prédit. La diagonale = les bonnes réponses."""
+    themes = sorted(set(vrais) | set(predits))
+    matrice = pd.crosstab(pd.Categorical(vrais, themes), pd.Categorical(predits, themes), dropna=False)
+    fig, ax = plt.subplots(figsize=(8, 7))
+    ax.imshow(matrice.values, cmap="Reds")
+    for i in range(len(themes)):
+        for j in range(len(themes)):
+            n = matrice.values[i, j]
+            if n:
+                ax.text(j, i, n, ha="center", va="center",
+                        color="white" if n > matrice.values.max() / 2 else "black")
+    ax.set_xticks(range(len(themes)), themes, rotation=45, ha="right")
+    ax.set_yticks(range(len(themes)), themes)
+    ax.set_xlabel("thème prédit par le modèle")
+    ax.set_ylabel("vrai thème (sommaire du rapport)")
+    ax.grid(False)
+    ax.set_title(titre)
+    # la source plus bas que d'habitude, sous les noms de thèmes penchés
+    plt.figtext(0.01, -0.1, "Source : rapports ITIE Guinée, entraînement sur 2022, test sur 2023", fontsize=9, color="gray")
+    enregistrer("modele_pages_confusion.png")
