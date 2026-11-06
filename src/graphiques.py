@@ -497,7 +497,7 @@ def graphique_paiement_par_tonne(t):
     enregistrer("itie_paiement_par_tonne.png")
 
 
-# ---------- Notre modèle qui reconnaît le thème d'une page ----------
+# ---------- Le modèle qui reconnaît le thème d'une page ----------
 
 def graphique_matrice_confusion(vrais, predits, titre):
     """Tableau coloré : en ligne le vrai thème, en colonne le thème prédit. La diagonale = les bonnes réponses."""
@@ -520,3 +520,22 @@ def graphique_matrice_confusion(vrais, predits, titre):
     # la source plus bas que d'habitude, sous les noms de thèmes penchés
     plt.figtext(0.01, -0.1, "Source : rapports ITIE Guinée, entraînement sur 2022, test sur 2023", fontsize=9, color="gray")
     enregistrer("modele_pages_confusion.png")
+
+
+def graphique_comparaison_gemini(scores, titre):
+    """Barres horizontales : part de bonnes réponses de chaque modèle, le modèle TF-IDF en rouge, Gemini en bleu."""
+    couleurs = [GUINEE if "TF-IDF" in nom else "#4285f4" if "Gemini" in nom else GRIS for nom in scores.index]
+    fig, ax = plt.subplots(figsize=(10, 3.5))
+    ax.barh(scores.index, scores.values * 100, color=couleurs)
+    for i, valeur in enumerate(scores.values):
+        ax.text(valeur * 100 + 1, i, f"{valeur:.0%}", va="center")
+    ax.invert_yaxis()                               # le premier modèle du tableau en haut
+    ax.set_xlim(0, 110)
+    ax.set_xlabel("bonnes réponses (%)")
+    ax.grid(axis="x", alpha=0.3)
+    ax.grid(axis="y", visible=False)
+    ax.set_title(titre)
+    # la source plus bas que d'habitude, sous le titre de l'axe
+    plt.figtext(0.01, -0.1, "Source : rapport ITIE Guinée 2023, pages 9 à 35 (thème vrai = sommaire du rapport)",
+                fontsize=9, color="gray")
+    enregistrer("gemini_comparaison.png")
