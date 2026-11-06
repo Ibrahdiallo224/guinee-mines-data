@@ -1,11 +1,12 @@
-"""Demande à Gemini (Google) le thème de chaque page du rapport ITIE 2023, pour le comparer à notre modèle.
+"""Demande à Gemini (Google) le thème de chaque page du rapport ITIE 2023, pour le comparer à mon modèle.
 
 À lancer depuis la racine du projet : py -3.13 src/gemini_pages.py
 Il faut une clé dans le fichier .env : GEMINI_API_KEY=...
 Résultat : data/gemini_pages_2023.csv (page, thème donné par Gemini, durée de la réponse).
 
-L'offre gratuite limite le nombre d'appels par minute : le script attend entre deux pages,
-et il reprend là où il s'était arrêté si on le relance.
+L'offre gratuite limite le nombre d'appels par minute et par jour : le script attend entre deux pages,
+et il reprend là où il s'était arrêté si on le relance. Avec gemini-3.5-flash, le quota du jour
+s'épuise après une vingtaine de pages : la comparaison (notebook 07c) porte sur les pages obtenues.
 """
 import os
 import time
@@ -22,7 +23,7 @@ SORTIE = "data/gemini_pages_2023.csv"
 load_dotenv()                                                   # lit .env et met la clé dans les variables d'environnement
 client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 
-# La consigne : les mêmes 7 thèmes que notre modèle, avec ce que chacun contient
+# La consigne : les mêmes 7 thèmes que le modèle TF-IDF, avec ce que chacun contient
 themes = pd.read_csv("data/itie_themes.csv", dtype=str)
 definitions = themes.groupby("theme")["contenu"].apply("; ".join)
 CONSIGNE = ("Tu reçois le texte d'une page d'un rapport ITIE (Initiative pour la transparence dans les industries "
@@ -46,8 +47,11 @@ def demander_theme(texte):
             )
             return reponse.text.strip()
         except Exception as erreur:
+            if "429" in str(erreur) and "PerDay" in str(erreur):
+                # quota du jour épuisé : inutile d'attendre une minute, il faut attendre le lendemain
+                raise RuntimeError(f"Quota quotidien de {MODELE} atteint : relancer le script demain, il reprendra où il en était")
             if "429" in str(erreur) or "503" in str(erreur):
-                # 429 = trop d'appels de notre part ; 503 = serveurs de Google surchargés.
+                # 429 = trop d'appels de ma part ; 503 = serveurs de Google surchargés.
                 # Dans les deux cas c'est temporaire : on attend une minute et on réessaie.
                 print(f"  Gemini indisponible ({str(erreur)[:3]}), pause d'une minute (essai {essai + 1}/10)...")
                 time.sleep(60)
@@ -58,7 +62,7 @@ def demander_theme(texte):
                 raise
             else:
                 raise
-    raise RuntimeError("Gemini ne répond plus après 10 essais : relance le script plus tard, il reprendra où il en était")
+    raise RuntimeError("Gemini ne répond plus après 10 essais : relancer le script plus tard, il reprendra où il en était")
 
 
 pages = pd.read_csv("data/itie/pages_etiquetees.csv")
