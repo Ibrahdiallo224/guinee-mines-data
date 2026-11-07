@@ -539,3 +539,23 @@ def graphique_comparaison_gemini(scores, titre):
     plt.figtext(0.01, -0.1, "Source : rapport ITIE Guinée 2023, pages 9 à 35 (thème vrai = sommaire du rapport)",
                 fontsize=9, color="gray")
     enregistrer("gemini_comparaison.png")
+
+
+# ---------- L'assistant RAG ----------
+
+def graphique_rag(scores, titre):
+    """Barres horizontales : nombre de bonnes recherches ou réponses sur le total, pour chaque version."""
+    fig, ax = plt.subplots(figsize=(10, 3.5))
+    couleurs = [GRIS if "texte seul" in nom else GUINEE for nom in scores.index]
+    ax.barh(scores.index, scores["justes"], color=couleurs)
+    for i, ligne in enumerate(scores.itertuples()):
+        ax.text(ligne.justes + 0.1, i, f"{ligne.justes} / {ligne.total}", va="center")
+    ax.invert_yaxis()                               # la première version en haut
+    ax.set_xlim(0, scores["total"].max() + 1.5)
+    ax.set_xlabel("questions de test réussies")
+    ax.grid(axis="x", alpha=0.3)
+    ax.grid(axis="y", visible=False)
+    ax.set_title(titre)
+    plt.figtext(0.01, -0.1, "Source : rapports ITIE Guinée 2022 et 2023, 10 questions à réponse connue",
+                fontsize=9, color="gray")
+    enregistrer("rag_resultats.png")
