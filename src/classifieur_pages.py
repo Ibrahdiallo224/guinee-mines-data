@@ -1,4 +1,4 @@
-"""Mon propre modèle d'IA : il lit le texte d'une page de rapport ITIE et dit de quel thème elle parle.
+"""Modèle d'IA entraîné sur les rapports ITIE : il lit le texte d'une page de rapport ITIE et dit de quel thème elle parle.
 
 Deux étapes, enchaînées dans un « pipeline » scikit-learn :
 1. TF-IDF : transforme chaque page en une liste de nombres, un par mot du vocabulaire.

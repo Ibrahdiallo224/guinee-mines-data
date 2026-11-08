@@ -1,0 +1,288 @@
+annee,produit,pays,iso3,valeur_musd
+2015,bauxite,Spain,ESP,168.368
+2015,bauxite,Ireland,IRL,162.401
+2015,bauxite,Ukraine,UKR,113.898
+2015,bauxite,Germany,DEU,110.543
+2015,bauxite,USA,USA,101.907
+2015,bauxite,France,FRA,54.754
+2015,bauxite,India,IND,52.671
+2015,bauxite,Canada,CAN,45.632
+2015,bauxite,China,CHN,19.987
+2015,minerai de fer,Türkiye,TUR,0.001
+2015,or,India,IND,224.721
+2015,or,United Arab Emirates,ARE,184.818
+2015,or,Belgium,BEL,95.308
+2015,or,Switzerland,CHE,28.571
+2015,or,France,FRA,19.671
+2015,or,Lebanon,LBN,2.94
+2015,or,Spain,ESP,2.339
+2015,or,Italy,ITA,0.491
+2015,or,Czechia,CZE,0.226
+2015,or,Türkiye,TUR,0.164
+2015,or,USA,USA,0.132
+2016,bauxite,China,CHN,622.427
+2016,bauxite,Ireland,IRL,152.238
+2016,bauxite,Ukraine,UKR,94.904
+2016,bauxite,Spain,ESP,94.719
+2016,bauxite,Germany,DEU,81.262
+2016,bauxite,India,IND,42.821
+2016,bauxite,France,FRA,37.514
+2016,bauxite,Canada,CAN,37.369
+2016,bauxite,USA,USA,3.422
+2016,bauxite,South Africa,ZAF,0.0
+2016,minerai de fer,South Africa,ZAF,0.0
+2016,or,United Arab Emirates,ARE,1073.599
+2016,or,Switzerland,CHE,181.049
+2016,or,India,IND,113.173
+2016,or,France,FRA,99.447
+2016,or,Lebanon,LBN,47.617
+2016,or,Belgium,BEL,23.452
+2016,or,USA,USA,0.877
+2016,or,Italy,ITA,0.57
+2016,or,Portugal,PRT,0.164
+2016,or,Germany,DEU,0.126
+2016,or,Singapore,SGP,0.108
+2016,or,Canada,CAN,0.091
+2016,or,United Kingdom,GBR,0.039
+2017,bauxite,China,CHN,1452.689
+2017,bauxite,Ireland,IRL,147.097
+2017,bauxite,Spain,ESP,115.952
+2017,bauxite,Ukraine,UKR,97.525
+2017,bauxite,Germany,DEU,79.923
+2017,bauxite,Canada,CAN,44.615
+2017,bauxite,India,IND,39.424
+2017,bauxite,France,FRA,39.221
+2017,bauxite,Brazil,BRA,9.835
+2017,bauxite,Russian Federation,RUS,0.008
+2017,bauxite,United Kingdom,GBR,0.002
+2017,bauxite,Ghana,GHA,0.001
+2017,bauxite,South Africa,ZAF,0.0
+2017,or,United Arab Emirates,ARE,2713.883
+2017,or,India,IND,392.572
+2017,or,Lebanon,LBN,67.52
+2017,or,France,FRA,49.646
+2017,or,Switzerland,CHE,28.199
+2017,or,Türkiye,TUR,12.68
+2017,or,USA,USA,0.942
+2017,or,Belgium,BEL,0.777
+2017,or,Rep. of Korea,KOR,0.484
+2017,or,"China, Hong Kong SAR",HKG,0.228
+2017,or,Italy,ITA,0.108
+2017,or,Japan,JPN,0.106
+2017,or,Russian Federation,RUS,0.076
+2018,alumine,Russian Federation,RUS,77.538
+2018,bauxite,China,CHN,2186.75
+2018,bauxite,Spain,ESP,172.439
+2018,bauxite,Ireland,IRL,148.031
+2018,bauxite,Ukraine,UKR,118.47
+2018,bauxite,Germany,DEU,105.547
+2018,bauxite,India,IND,41.393
+2018,bauxite,France,FRA,40.42
+2018,bauxite,Canada,CAN,32.813
+2018,bauxite,United Arab Emirates,ARE,11.792
+2018,bauxite,Greece,GRC,2.03
+2018,bauxite,Bosnia Herzegovina,BIH,1.605
+2018,bauxite,Morocco,MAR,0.002
+2018,bauxite,United Kingdom,GBR,0.001
+2018,minerai de fer,Sierra Leone,SLE,0.004
+2018,or,United Arab Emirates,ARE,2271.718
+2018,or,India,IND,290.814
+2018,or,Türkiye,TUR,61.698
+2018,or,Belgium,BEL,51.941
+2018,or,Lebanon,LBN,44.111
+2018,or,France,FRA,38.509
+2018,or,Switzerland,CHE,27.647
+2018,or,Japan,JPN,1.498
+2018,or,USA,USA,1.007
+2018,or,"China, Hong Kong SAR",HKG,0.195
+2018,or,Portugal,PRT,0.114
+2018,or,Germany,DEU,0.065
+2018,or,Rep. of Korea,KOR,0.054
+2018,or,Australia,AUS,0.043
+2019,alumine,Russian Federation,RUS,98.98
+2019,alumine,Cameroon,CMR,41.789
+2019,bauxite,China,CHN,2455.006
+2019,bauxite,Spain,ESP,184.685
+2019,bauxite,Ireland,IRL,145.029
+2019,bauxite,United Arab Emirates,ARE,135.904
+2019,bauxite,Ukraine,UKR,118.403
+2019,bauxite,Germany,DEU,112.03
+2019,bauxite,India,IND,98.07
+2019,bauxite,France,FRA,37.718
+2019,bauxite,Canada,CAN,36.539
+2019,bauxite,Bosnia Herzegovina,BIH,6.545
+2019,bauxite,USA,USA,1.938
+2019,bauxite,Greece,GRC,1.689
+2019,bauxite,South Africa,ZAF,0.0
+2019,bauxite,Rep. of Korea,KOR,0.0
+2019,minerai de fer,China,CHN,0.006
+2019,or,United Arab Emirates,ARE,2234.457
+2019,or,Belgium,BEL,240.542
+2019,or,India,IND,224.449
+2019,or,Switzerland,CHE,126.882
+2019,or,Uganda,UGA,11.374
+2019,or,Lebanon,LBN,7.806
+2019,or,France,FRA,5.032
+2019,or,USA,USA,1.004
+2019,or,Malaysia,MYS,0.516
+2019,or,Spain,ESP,0.488
+2019,or,Türkiye,TUR,0.073
+2019,or,United Kingdom,GBR,0.065
+2019,or,Nepal,NPL,0.0
+2019,or,Thailand,THA,0.0
+2020,alumine,Russian Federation,RUS,97.179
+2020,alumine,Cameroon,CMR,29.004
+2020,bauxite,China,CHN,2417.167
+2020,bauxite,Spain,ESP,192.066
+2020,bauxite,United Arab Emirates,ARE,173.92
+2020,bauxite,India,IND,147.815
+2020,bauxite,Ukraine,UKR,144.156
+2020,bauxite,Ireland,IRL,139.932
+2020,bauxite,Germany,DEU,130.753
+2020,bauxite,Canada,CAN,45.052
+2020,bauxite,France,FRA,39.499
+2020,bauxite,Brazil,BRA,15.063
+2020,bauxite,Greece,GRC,5.687
+2020,bauxite,USA,USA,2.716
+2020,bauxite,Bosnia Herzegovina,BIH,0.192
+2020,bauxite,Türkiye,TUR,0.003
+2020,bauxite,United Kingdom,GBR,0.003
+2020,bauxite,Russian Federation,RUS,0.001
+2020,bauxite,Rep. of Korea,KOR,0.0
+2020,bauxite,South Africa,ZAF,0.0
+2020,minerai de fer,China,CHN,19.905
+2020,minerai de fer,South Africa,ZAF,0.0
+2020,or,United Arab Emirates,ARE,6618.413
+2020,or,India,IND,812.741
+2020,or,Switzerland,CHE,276.806
+2020,or,Belgium,BEL,249.685
+2020,or,Türkiye,TUR,156.691
+2020,or,Lebanon,LBN,63.247
+2020,or,France,FRA,12.162
+2020,or,"China, Hong Kong SAR",HKG,0.049
+2020,or,Portugal,PRT,0.049
+2020,or,Mali,MLI,0.01
+2021,alumine,Russian Federation,RUS,102.16
+2021,alumine,Cameroon,CMR,46.009
+2021,bauxite,China,CHN,2702.619
+2021,bauxite,United Arab Emirates,ARE,231.648
+2021,bauxite,India,IND,196.233
+2021,bauxite,Spain,ESP,186.486
+2021,bauxite,Ukraine,UKR,140.424
+2021,bauxite,Ireland,IRL,115.365
+2021,bauxite,Germany,DEU,86.89
+2021,bauxite,Canada,CAN,61.717
+2021,bauxite,France,FRA,27.45
+2021,bauxite,Greece,GRC,7.891
+2021,bauxite,Brazil,BRA,2.344
+2021,bauxite,South Africa,ZAF,0.0
+2021,minerai de fer,China,CHN,87.304
+2021,or,India,IND,3156.256
+2021,or,United Arab Emirates,ARE,2336.404
+2021,or,Switzerland,CHE,239.609
+2021,or,Lebanon,LBN,38.624
+2021,or,France,FRA,16.103
+2021,or,Türkiye,TUR,2.96
+2021,or,Thailand,THA,1.796
+2021,or,Belgium,BEL,1.049
+2021,or,Italy,ITA,0.335
+2021,or,Mali,MLI,0.286
+2021,or,Rep. of Korea,KOR,0.113
+2022,alumine,Cameroon,CMR,30.223
+2022,bauxite,China,CHN,4500.326
+2022,bauxite,Spain,ESP,236.52
+2022,bauxite,India,IND,228.694
+2022,bauxite,Germany,DEU,156.512
+2022,bauxite,United Arab Emirates,ARE,154.292
+2022,bauxite,Ireland,IRL,104.316
+2022,bauxite,Canada,CAN,52.447
+2022,bauxite,Ukraine,UKR,28.368
+2022,bauxite,Bosnia Herzegovina,BIH,4.54
+2022,bauxite,Greece,GRC,4.236
+2022,bauxite,Türkiye,TUR,0.001
+2022,bauxite,Hungary,HUN,0.0
+2022,minerai de fer,China,CHN,24.543
+2022,minerai de fer,Australia,AUS,0.002
+2022,minerai de fer,India,IND,0.0
+2022,minerai de fer,Canada,CAN,0.0
+2022,minerai de fer,South Africa,ZAF,0.0
+2022,or,United Arab Emirates,ARE,2452.704
+2022,or,India,IND,2414.346
+2022,or,Switzerland,CHE,344.578
+2022,or,Mali,MLI,182.09
+2022,or,France,FRA,15.62
+2022,or,Spain,ESP,0.65
+2022,or,Türkiye,TUR,0.239
+2022,or,Czechia,CZE,0.123
+2022,or,Nepal,NPL,0.002
+2023,alumine,Cameroon,CMR,34.289
+2023,alumine,France,FRA,0.792
+2023,bauxite,China,CHN,6389.824
+2023,bauxite,United Arab Emirates,ARE,674.24
+2023,bauxite,India,IND,230.453
+2023,bauxite,Ireland,IRL,98.998
+2023,bauxite,Spain,ESP,96.512
+2023,bauxite,Germany,DEU,59.291
+2023,bauxite,Canada,CAN,57.848
+2023,bauxite,Greece,GRC,11.399
+2023,bauxite,Bosnia Herzegovina,BIH,1.103
+2023,bauxite,France,FRA,0.003
+2023,bauxite,Hungary,HUN,0.0
+2023,minerai de fer,China,CHN,0.02
+2023,minerai de fer,France,FRA,0.002
+2023,minerai de fer,Ireland,IRL,0.0
+2023,or,United Arab Emirates,ARE,8363.538
+2023,or,India,IND,1037.614
+2023,or,Switzerland,CHE,239.726
+2023,or,France,FRA,5.165
+2023,or,USA,USA,2.622
+2023,or,Mali,MLI,1.887
+2023,or,Japan,JPN,1.207
+2023,or,Rep. of Korea,KOR,0.903
+2023,or,Czechia,CZE,0.017
+2023,or,Cyprus,CYP,0.007
+2024,alumine,France,FRA,1.945
+2024,bauxite,China,CHN,7589.4
+2024,bauxite,India,IND,277.178
+2024,bauxite,Ireland,IRL,157.344
+2024,bauxite,Germany,DEU,119.439
+2024,bauxite,Spain,ESP,109.498
+2024,bauxite,Canada,CAN,45.744
+2024,bauxite,Greece,GRC,17.773
+2024,bauxite,France,FRA,0.008
+2024,minerai de fer,China,CHN,20.775
+2024,minerai de fer,Australia,AUS,0.013
+2024,minerai de fer,India,IND,0.003
+2024,minerai de fer,South Africa,ZAF,0.0
+2024,minerai de fer,Bahrain,BHR,0.0
+2024,minerai de fer,Netherlands,NLD,0.0
+2024,or,India,IND,325.749
+2024,or,Italy,ITA,99.509
+2024,or,Switzerland,CHE,16.853
+2024,or,"Other Asia, nes",S19,6.19
+2024,or,France,FRA,0.989
+2024,or,Lebanon,LBN,0.96
+2024,or,Mali,MLI,0.151
+2024,or,Rep. of Korea,KOR,0.13
+2024,or,USA,USA,0.065
+2024,or,Japan,JPN,0.043
+2025,alumine,France,FRA,0.668
+2025,bauxite,China,CHN,12063.769
+2025,bauxite,India,IND,376.628
+2025,bauxite,Ireland,IRL,198.711
+2025,bauxite,Germany,DEU,146.997
+2025,bauxite,Spain,ESP,107.354
+2025,bauxite,Canada,CAN,48.425
+2025,bauxite,Greece,GRC,16.406
+2025,bauxite,France,FRA,0.0
+2025,bauxite,Rep. of Korea,KOR,0.0
+2025,bauxite,South Africa,ZAF,0.0
+2025,minerai de fer,China,CHN,27.553
+2025,minerai de fer,France,FRA,0.004
+2025,minerai de fer,Japan,JPN,0.004
+2025,minerai de fer,South Africa,ZAF,0.001
+2025,minerai de fer,Singapore,SGP,0.0
+2025,or,India,IND,592.358
+2025,or,Italy,ITA,194.671
+2025,or,"China, Hong Kong SAR",HKG,28.253
+2025,or,Rep. of Korea,KOR,0.112
