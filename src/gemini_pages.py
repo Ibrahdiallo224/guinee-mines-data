@@ -1,4 +1,4 @@
-"""Demande à Gemini (Google) le thème de chaque page du rapport ITIE 2023, pour le comparer à mon modèle.
+"""Demande à Gemini (Google) le thème de chaque page du rapport ITIE 2023, pour le comparer au modèle TF-IDF.
 
 À lancer depuis la racine du projet : py -3.13 src/gemini_pages.py
 Il faut une clé dans le fichier .env : GEMINI_API_KEY=...
@@ -51,7 +51,7 @@ def demander_theme(texte):
                 # quota du jour épuisé : inutile d'attendre une minute, il faut attendre le lendemain
                 raise RuntimeError(f"Quota quotidien de {MODELE} atteint : relancer le script demain, il reprendra où il en était")
             if "429" in str(erreur) or "503" in str(erreur):
-                # 429 = trop d'appels de ma part ; 503 = serveurs de Google surchargés.
+                # 429 = trop d'appels envoyés ; 503 = serveurs de Google surchargés.
                 # Dans les deux cas c'est temporaire : on attend une minute et on réessaie.
                 print(f"  Gemini indisponible ({str(erreur)[:3]}), pause d'une minute (essai {essai + 1}/10)...")
                 time.sleep(60)
