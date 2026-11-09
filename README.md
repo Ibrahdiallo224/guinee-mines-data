@@ -4,7 +4,7 @@
 
 Analyse du secteur minier guinéen (bauxite, or, fer) de 2000 à 2025, prévisions jusqu'en 2035, et un assistant IA qui répond aux questions sur les rapports ITIE en citant ses sources. Données publiques : Banque mondiale, Ministère des Mines et de la Géologie, INS, UN Comtrade, USGS, Rio Tinto, rapports ITIE Guinée.
 
-**Outils :** Python, SQL (DuckDB), pandas, matplotlib, scikit-learn, pdfplumber, API Gemini, Streamlit.
+**Outils :** Python, SQL (DuckDB), pandas, matplotlib, scikit-learn, pdfplumber, API Gemini, Streamlit, Power BI.
 
 ---
 
@@ -33,6 +33,20 @@ Analyse du secteur minier guinéen (bauxite, or, fer) de 2000 à 2025, prévisio
 ![Part de la Guinée dans la bauxite mondiale](images/part_guinee_monde.png)
 
 ![L'assistant RAG](images/rag_resultats.png)
+
+---
+
+## Le tableau de bord Power BI
+
+Les résultats principaux réunis dans un tableau de bord de 3 pages ([guinee_mines.pbix](powerbi/guinee_mines.pbix), version [PDF](powerbi/guinee_mines.pdf)). Un segment d'année, synchronisé entre les pages, met à jour les indicateurs ; les courbes gardent toute la période.
+
+![Vue d'ensemble](powerbi/1_vue_ensemble.png)
+
+![Qui paie l'État](powerbi/2_qui_paie_etat.png)
+
+![Simandou et le monde](powerbi/3_simandou_monde.png)
+
+Construction : 7 tables CSV préparées en Python et SQL (`src/exporter_powerbi.py`, requêtes `sql/09_pbi_*`), un modèle en étoile autour d'une table des années, et des mesures DAX (`DIVIDE`, `CALCULATE`) pour la part de la Guinée dans la production mondiale et la part de la Chine dans les achats de bauxite.
 
 ---
 
@@ -71,7 +85,7 @@ Une bonne partie du travail a consisté à vérifier les données avant de les u
 
 ```
 data/        les données (CSV), chaque chiffre recopié à la main indique sa source et sa page
-sql/         les requêtes SQL, une par fichier (01_ à 07_ selon l'analyse)
+sql/         les requêtes SQL, une par fichier (01_ à 09_ selon l'analyse)
 src/         le code Python réutilisable
   requetes.py                     lance une requête de sql/ avec ses paramètres
   graphiques.py                   tous les graphiques du projet
@@ -85,8 +99,10 @@ src/         le code Python réutilisable
   evaluer_rag.py                  pose les 10 questions de test à l'assistant
   assistant_itie.py               l'assistant dans le terminal
   app_assistant.py                l'assistant dans une page web (Streamlit)
+  exporter_powerbi.py             prépare les tables du tableau de bord Power BI
 notebooks/   les analyses : appels aux requêtes, résultats, graphiques, conclusions
 images/      les graphiques exportés
+powerbi/     le tableau de bord Power BI, ses tables (donnees/) et ses captures
 ```
 
 Choix techniques :
@@ -127,9 +143,14 @@ Lancer l'assistant dans le navigateur :
 py -m streamlit run src\app_assistant.py
 ```
 
+Régénérer les tables du tableau de bord, puis ouvrir `powerbi/guinee_mines.pbix` dans Power BI Desktop et cliquer sur Actualiser :
+
+```
+py src\exporter_powerbi.py
+```
+
 ---
 
 ## Suite du projet
 
-- **Tableau de bord Power BI** qui rassemble les résultats du projet.
 - **Recherche par le sens** (*embeddings*) pour l'assistant, et d'autres tableaux des rapports ITIE transformés en fiches.
